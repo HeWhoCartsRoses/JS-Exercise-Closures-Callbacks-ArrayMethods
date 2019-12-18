@@ -48,8 +48,8 @@ function processFirstItem(stringList, callback) {
  * [2] Invoking `processLength` passing `[]` and `(num) => "There are " + num`,
  * should return "There are 0".
 */
-function processLength(/* CODE HERE */) {
-  /* CODE HERE */
+function processLength(list, callback) {
+  return callback(list.length);
 }
 
 /**
@@ -66,8 +66,8 @@ function processLength(/* CODE HERE */) {
  * Invoking `processLastItem` passing `['foo', 'bar']` and `(str) => str + str`,
  * should return 'barbar'.
 */
-function processLastItem(/* CODE HERE */) {
-  /* CODE HERE */
+function processLastItem(stringList, callback) {
+  return callback(stringList[stringList.length - 1]);
 }
 
 /**
@@ -87,8 +87,8 @@ function processLastItem(/* CODE HERE */) {
  * [2] Invoking `processSum` passing `[]` and `(num) => num + 1000`,
  * should return 1000.
 */
-function processSum(/* CODE HERE */) {
-  /* CODE HERE */
+function processSum(numberList, callback) {
+  return callback(numberList.reduce((a, b) => a + b, 0));
 }
 
 /**
@@ -97,10 +97,10 @@ function processSum(/* CODE HERE */) {
  * @instructions
  * Implement a higher-order function called `processProduct`.
  * It takes three arguments:
- * @param num1 a number.
- * @param num2 a number.
- * @param callback function that takes a number as its argument.
- * @returns the result of invoking `callback` passing the PRODUCT of `num1` and `num2`.
+ * param num1 a number.
+ * param num2 a number.
+ * param callback function that takes a number as its argument.
+ * returns the result of invoking `callback` passing the PRODUCT of `num1` and `num2`.
  * 
  * Examples of usage of this higher-order function:
  * [1] Invoking `processProduct` passing 2 and 7 and `(num) => num + " is a big number!"`,
@@ -109,8 +109,8 @@ function processSum(/* CODE HERE */) {
  * [2] Invoking `processProduct` passing 25 and 0 and `(num) => num + 1000`,
  * should return 1000.
 */
-function processProduct(/* CODE HERE */) {
-  /* CODE HERE */
+function processProduct(a, b, callback) {
+  return callback(a * b);
 }
 
 /**
@@ -119,9 +119,9 @@ function processProduct(/* CODE HERE */) {
  * @instructions
  * Implement a higher-order function called `processContains`.
  * It takes three arguments:
- * @param item of any kind.
- * @param list array of elements of any kind.
- * @param callback function that takes a boolean as its argument.
+ * param item of any kind.
+ * param list array of elements of any kind.
+ * param callback function that takes a boolean as its argument.
  * @returns the result of invoking `callback` passing true if `item` exists in `list`, false otherwise.
  * 
  * Examples of usage of this higher-order function:
@@ -133,8 +133,8 @@ function processProduct(/* CODE HERE */) {
  * "lady gaga" and `['foo', 'bar']` and `(bool) => bool ? 'nice!' : 'sad'`,
  * should return "sad".
 */
-function processContains(/* CODE HERE */) {
-  /* CODE HERE */
+function processContains(item, list, callback) {
+  return callback(list.includes(item));
 }
 
 /**
@@ -145,8 +145,8 @@ function processContains(/* CODE HERE */) {
  * @instructions
  * Implement a higher-order function called `processDuplicateFree`.
  * It takes two arguments:
- * @param list array of elements of any kind.
- * @param callback function that takes an array as its argument.
+ * param list array of elements of any kind.
+ * param callback function that takes an array as its argument.
  * @returns the result of invoking `callback` passing a de-duped version of `list`.
  * 
  * Examples of usage of this higher-order function:
@@ -156,8 +156,8 @@ function processContains(/* CODE HERE */) {
  * [2] Invoking `processDuplicateFree` passing `[1,1,2,2,3]` and `(arr) => arr.length`,
  * should return 3.
 */
-function processDuplicateFree(/* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS */) {
-  /* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS */
+function processDuplicateFree(list, callback) {
+  return [...new Set(list)];
 }
 
 /////////////// HIGHER-ORDER ARRAY METHODS ///////////////
@@ -174,12 +174,16 @@ function processDuplicateFree(/* CODE HERE ONLY AFTER COMPLETING ALL OTHER TASKS
  * @instructions
  * Implement this function using forEach().
  * 
- * @param runners array of runners like the one inside the /data/runners.js file.
+ * param runners array of runners like the one inside the /data/runners.js file.
  * @returns an array with all the runners' full names in the following format: "Smith, John".
  * The full names appear in the array in the same order the runners appear in the `runners` array.
 */
-function getFullNames(/* CODE HERE */) {
-  /* CODE HERE */
+function getFullNames(runners) {
+  let name = [];
+  runners.forEach((currentValue) => {
+    name.push(`${currentValue.last_name}, ${currentValue.first_name}`)
+  });
+  return name;
 }
 
 /**
@@ -190,12 +194,16 @@ function getFullNames(/* CODE HERE */) {
  * in uppercase because the director BECAME DRUNK WITH POWER.
  * Implement this function using map().
  * 
- * @param runners array of runners like the one inside the /data/runners.js file.
+ * param runners array of runners like the one inside the /data/runners.js file.
  * @returns an array with all the runners' first names in ALL CAPS.
  * The first names appear in the array in the same order the runners appear in the `runners` array.
 */
-function firstNamesAllCaps(/* CODE HERE */) {
-  /* CODE HERE */
+function firstNamesAllCaps(runners) {
+  let name = [];
+  runners.forEach((currentValue) => {
+    name.push(`${currentValue.first_name.toUpperCase()}`)
+  });
+  return name;
 }
 
 /**
@@ -206,13 +214,16 @@ function firstNamesAllCaps(/* CODE HERE */) {
  * a specific t-shirt size, so they can place the orders easily.
  * Implement this function using filter().
  * 
- * @param runners array of runners like the one inside the /data/runners.js file.
- * @param tShirtSize string (possible values are "S", "M", "L", "XL", "2XL", "3XL").
+ * param runners array of runners like the one inside the /data/runners.js file.
+ * param tShirtSize string (possible values are "S", "M", "L", "XL", "2XL", "3XL").
  * @returns an array containing only the runners that use the given `tShirtSize`.
  * The runners in the array appear in the same order they appear in the `runners` array.
 */
-function getRunnersByTShirtSize(/* CODE HERE */) {
-  /* CODE HERE */
+function getRunnersByTShirtSize(runners, tShirtSize) {
+  // return runners.filter(tShirtSize => runners.shirt_size);
+  // return runners.filter(tShirtSize[, index[, array]])
+  return runners.filter(wack => wack.shirt_size === tShirtSize);
+  // arr.filter(random_variable(RV) => RV.Variable you are searching for(if ti has ID's)(comparison)and the variable it has to match)
 }
 
 /**
@@ -222,11 +233,16 @@ function getRunnersByTShirtSize(/* CODE HERE */) {
  * The donations need to be tallied up and reported for tax purposes.
  * Implement this function using reduce().
  * 
- * @param runners array of runners like the one inside the /data/runners.js file.
+ * param runners array of runners like the one inside the /data/runners.js file.
  * @returns a number which is the sum of the donations by all runners.
 */
-function tallyUpDonations(/* CODE HERE */) {
-  /* CODE HERE */
+function tallyUpDonations(runners) {
+  //return runners.reduce(runners.donation, 0);
+  return runners.reduce((acc, item) => (acc += item.donation), 0);
+  //acc: number of last answer
+  //item: array[item]
+  //second brackets is what you want them to do.(both var used again)
+  //last # is where you start.
 }
 
 /////////////// CLOSURES ///////////////
@@ -247,13 +263,12 @@ function tallyUpDonations(/* CODE HERE */) {
 */
 function counterMaker() {
   // BROKEN CODE STARTS
-  const count = 0;
-  function counter() {
-    ++count
+  let count = -1;
+  return function counter() {
+    return count += 1;
   }
   // BROKEN CODE ENDS
 }
-
 /**
  * ### Challenge `counterMakerWithLimit`
  * 
@@ -274,8 +289,17 @@ function counterMaker() {
  * counter() // should return 0
  * etc
 */
-function counterMakerWithLimit(/* CODE HERE */) {
-  /* CODE HERE */
+function counterMakerWithLimit(max) {
+  let count = -1;
+  return function counter() {
+    if (count < max) {
+      return count += 1;
+    }
+
+    else {
+      return count = 0;
+    }
+  }
 }
 
 /////////////// END OF CHALLENGE ///////////////
